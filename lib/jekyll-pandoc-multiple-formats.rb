@@ -13,10 +13,12 @@ class PandocGenerator < Generator
       # Skip conversion if we're skipping, but still cleanup the outputs hash
       next if site.config['pandoc']['skip']
 
+      collection = site.config['pandoc']['collection']
+
       # If there isn't a config entry for pandoc's output throw it with the rest
       base_dir = File.join(site.source, site.config['pandoc']['output']) || site.source
 
-      site.posts.each do |post|
+      site.collections[collection].docs.each do |post|
 
         post_path = File.join(base_dir, output, File.dirname(post.url))
 
